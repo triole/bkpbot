@@ -1,7 +1,6 @@
 package main
 
 import (
-	"fmt"
 	"olibs/times"
 )
 
@@ -15,7 +14,7 @@ func main() {
 
 	if *argsDebug == true {
 		tf := "/tmp/bkpbot_debug.json"
-		fmt.Printf("Debug rich config saved to %q", tf)
+		lg.Logf("Debug rich config saved to %q", tf)
 		saveRichConfig(conf, tf)
 	}
 
