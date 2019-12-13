@@ -3,6 +3,8 @@ package main
 import (
 	"olibs/rx"
 	"olibs/syslib"
+	"os"
+	"strings"
 )
 
 func detectFolders(root string, detect bool) (fol []string) {
@@ -25,5 +27,20 @@ func removeExclusions(allFolders []string, exclusions []string) (folders []strin
 			folders = append(folders, f)
 		}
 	}
+	return
+}
+
+func expandEnvMult(folders []string) (arr []string) {
+	for _, f := range folders {
+		arr = append(arr, expandEnv(f))
+	}
+	return
+}
+
+func expandEnv(folder string) (s string) {
+	s = os.ExpandEnv(folder)
+	s = strings.Replace(s, "<CURDIR>", env.Curdir, -1)
+	s = strings.Replace(s, "<SCRIPTDIR>", env.Scriptdir, -1)
+	s = syslib.Pabs(s)
 	return
 }

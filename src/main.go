@@ -23,7 +23,7 @@ func main() {
 		lg.Logf("Run backup of set %v consisting of %v folders", idx, len(e.Folders))
 
 		for _, f := range e.Folders {
-			doArchive(f, timestamp)
+			startBackup(f, timestamp)
 		}
 	}
 

@@ -1,0 +1,4 @@
+# currently supported custom vars: <CURDIR>, <SCRIPTDIR>
+-
+    root: <CURDIR>/../testdata/fol1
+    detect: false

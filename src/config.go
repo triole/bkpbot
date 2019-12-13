@@ -30,13 +30,15 @@ func readConfigYaml(filename string) (c Config) {
 
 func makeRichConfig(config Config) (richConfig RichConfig) {
 	for _, e := range config {
-		allFolders := detectFolders(e.Root, e.Detect)
-		folders2Process := removeExclusions(allFolders, e.Exclusions)
+		root := expandEnv(e.Root)
+		folders := detectFolders(root, e.Detect)
+		folders = expandEnvMult(folders)
+		folders = removeExclusions(folders, e.Exclusions)
 		r := RichFolder{
-			Root:       e.Root,
+			Root:       root,
 			Detect:     e.Detect,
 			Exclusions: e.Exclusions,
-			Folders:    folders2Process,
+			Folders:    folders,
 		}
 		richConfig = append(richConfig, r)
 	}
