@@ -1,0 +1,8 @@
+-
+    root: /home/ole/wostok
+    detect: true
+    exclusions:
+        - .*\/_media$
+-
+    root: /home/ablage
+    detect: false
