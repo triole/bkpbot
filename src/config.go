@@ -42,7 +42,7 @@ func makeRichConfig(config Config, configFileDir string) (richConfig RichConfig)
 			Detect:       e.Detect,
 			Exclusions:   e.Exclusions,
 			Folders:      folders,
-			OutputFolder: e.OutputFolder,
+			OutputFolder: expandEnv(e.OutputFolder, configFileDir),
 			Format:       e.Format,
 		}
 		richConfig = append(richConfig, r)

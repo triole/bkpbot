@@ -1,4 +1,3 @@
-# currently supported custom vars: <CURDIR>, <SCRIPTDIR>, <CONFIGDIR>
 -
     root: <CONFIGDIR>/fol2
     detect: true
