@@ -3,4 +3,6 @@
     root: <CURDIR>/../testdata/fol2
     detect: true
     output_folder: /tmp
+    exclusions:
+        - .*\/a$
     format: txz

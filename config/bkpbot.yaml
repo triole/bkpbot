@@ -1,5 +1,0 @@
--
-    root: /home/ole/wostok
-    detect: true
-    exclusions:
-        - .*\/_media$

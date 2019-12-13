@@ -35,10 +35,12 @@ func makeRichConfig(config Config) (richConfig RichConfig) {
 		folders = expandEnvMult(folders)
 		folders = removeExclusions(folders, e.Exclusions)
 		r := RichFolder{
-			Root:       root,
-			Detect:     e.Detect,
-			Exclusions: e.Exclusions,
-			Folders:    folders,
+			Root:         root,
+			Detect:       e.Detect,
+			Exclusions:   e.Exclusions,
+			Folders:      folders,
+			OutputFolder: e.OutputFolder,
+			Format:       e.Format,
 		}
 		richConfig = append(richConfig, r)
 	}

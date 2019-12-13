@@ -2,3 +2,5 @@
 -
     root: <CURDIR>/../testdata/fol1
     detect: false
+    output_folder: /tmp
+    format: txz

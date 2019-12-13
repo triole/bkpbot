@@ -4,7 +4,6 @@ import (
 	"olibs/environment"
 	"olibs/logging"
 	"olibs/rx"
-	"olibs/syslib"
 	"os"
 	"time"
 
@@ -22,9 +21,8 @@ var (
 	ts = time.Now()
 
 	app            = kingpin.New(appName, appDescription)
-	argsOutfolder  = app.Flag("outdir", "output directory").Short('o').Default(env.Curdir).String()
-	argsFormat     = app.Flag("format", "archive format, currently only txz is supported").Short('f').Default("txz").String()
-	argsConfigfile = app.Flag("config", "config file to read the setting from").Short('c').Default(syslib.Pj(env.Scriptdir, env.Name+".yml")).String()
+	argsConfigfile = app.Arg("config", "config file to read the setting from").Required().String()
+	argsSubfolder  = app.Flag("subfol", "subfolder created in output directory, used for daily, weekly etc.").Short('s').Default("").String()
 	argsLogfile    = app.Flag("logfile", "logfile which will be written").Short('l').Default(env.Logfile).String()
 	argsDebug      = app.Flag("debug", "debug mode, just print no action").Short('d').Default("false").Bool()
 
