@@ -12,7 +12,7 @@ func archive(b BkpSet) {
 	if *argsDebug == false {
 		err := archiver.Archive([]string{b.Folder}, b.TargetArchive)
 		if err != nil {
-			lg.Logf("Error during compression %q -> %q", b.Folder, b.TargetArchive)
+			lg.Logf("Error during compression %q -> %q: %s", b.Folder, b.TargetArchive, err)
 		}
 	}
 }
