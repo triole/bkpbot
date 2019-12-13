@@ -30,17 +30,18 @@ func removeExclusions(allFolders []string, exclusions []string) (folders []strin
 	return
 }
 
-func expandEnvMult(folders []string) (arr []string) {
+func expandEnvMult(folders []string, configFileDir string) (arr []string) {
 	for _, f := range folders {
-		arr = append(arr, expandEnv(f))
+		arr = append(arr, expandEnv(f, configFileDir))
 	}
 	return
 }
 
-func expandEnv(folder string) (s string) {
+func expandEnv(folder string, configFileDir string) (s string) {
 	s = os.ExpandEnv(folder)
 	s = strings.Replace(s, "<CURDIR>", env.Curdir, -1)
 	s = strings.Replace(s, "<SCRIPTDIR>", env.Scriptdir, -1)
+	s = strings.Replace(s, "<CONFIGDIR>", configFileDir, -1)
 	s = syslib.Pabs(s)
 	return
 }

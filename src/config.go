@@ -4,14 +4,17 @@ import (
 	"encoding/json"
 	"io/ioutil"
 	"log"
+	"olibs/rx"
 	"olibs/syslib"
 
 	yaml "gopkg.in/yaml.v2"
 )
 
 func initConfig(configFile string) (rc RichConfig) {
+	configFile = syslib.Pabs(configFile)
+	configDir := rx.Find(rxLib.UpToLastSlash, configFile)
 	c := readConfigYaml(configFile)
-	rc = makeRichConfig(c)
+	rc = makeRichConfig(c, configDir)
 	return
 }
 
@@ -28,11 +31,11 @@ func readConfigYaml(filename string) (c Config) {
 	return
 }
 
-func makeRichConfig(config Config) (richConfig RichConfig) {
+func makeRichConfig(config Config, configFileDir string) (richConfig RichConfig) {
 	for _, e := range config {
-		root := expandEnv(e.Root)
+		root := expandEnv(e.Root, configFileDir)
 		folders := detectFolders(root, e.Detect)
-		folders = expandEnvMult(folders)
+		folders = expandEnvMult(folders, configFileDir)
 		folders = removeExclusions(folders, e.Exclusions)
 		r := RichFolder{
 			Root:         root,

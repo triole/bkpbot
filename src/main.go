@@ -33,4 +33,7 @@ func main() {
 			archive(b)
 		}
 	}
+	if *argsDebug == true {
+		lg.Log("Nothing happened. Just ran in debug.")
+	}
 }

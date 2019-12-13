@@ -1,0 +1,8 @@
+# currently supported custom vars: <CURDIR>, <SCRIPTDIR>, <CONFIGDIR>
+-
+    root: <CONFIGDIR>/fol2
+    detect: true
+    output_folder: /tmp
+    exclusions:
+        - .*\/a$
+    format: txz

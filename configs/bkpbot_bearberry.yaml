@@ -1,5 +1,5 @@
 -
-    root: ${HOME}/wostok
+    root: <CONFIGDIR>
     detect: true
     exclusions:
         - .*\/_media$
