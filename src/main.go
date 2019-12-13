@@ -5,7 +5,7 @@ import (
 )
 
 func main() {
-	lg.Logf("Start %s", env.Name)
+	lg.Logf("Start %s", appName)
 
 	argparse()
 
