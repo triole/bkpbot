@@ -40,6 +40,15 @@ func TestInitConfig(t *testing.T) {
 		},
 		t,
 	)
+
+	assertInitConfig(
+		"../testdata/testcase5.yaml",
+		[]string{
+			syslib.Pj(basedir, "fol2/b"),
+			syslib.Pj(basedir, "fol2/c"),
+		},
+		t,
+	)
 }
 
 func assertInitConfig(configFile string, assertFolders []string, t *testing.T) {

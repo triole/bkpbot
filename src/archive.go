@@ -1,6 +1,7 @@
 package main
 
 import (
+	"compress/flate"
 	"olibs/rx"
 	"olibs/syslib"
 
@@ -10,7 +11,23 @@ import (
 func archive(b BkpSet) {
 	lg.Logf("Archive folder %q -> %q", b.Folder, b.TargetArchive)
 	if *argsDebug == false {
-		err := archiver.Archive([]string{b.Folder}, b.TargetArchive)
+
+		var err error
+		switch b.Format {
+		case "txz":
+			z := archiver.TarXz{}
+			err = z.Archive([]string{b.Folder}, b.TargetArchive)
+		default:
+			z := archiver.Zip{
+				CompressionLevel:       flate.BestCompression,
+				MkdirAll:               true,
+				SelectiveCompression:   true,
+				ContinueOnError:        true,
+				OverwriteExisting:      false,
+				ImplicitTopLevelFolder: false,
+			}
+			err = z.Archive([]string{b.Folder}, b.TargetArchive)
+		}
 		if err != nil {
 			lg.Logf("Error during compression %q -> %q: %s", b.Folder, b.TargetArchive, err)
 		}

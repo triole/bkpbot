@@ -1,0 +1,7 @@
+-
+    root: <CONFIGDIR>/fol2
+    detect: true
+    output_folder: /tmp
+    exclusions:
+        - .*\/a$
+    format: zip
