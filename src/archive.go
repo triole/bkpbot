@@ -4,6 +4,7 @@ import (
 	"compress/flate"
 	"olibs/rx"
 	"olibs/syslib"
+	"strings"
 
 	"github.com/mholt/archiver"
 )
@@ -40,6 +41,9 @@ func targetArchiveName(b BkpSet) (s string) {
 		s = syslib.Pj(b.OutputFolder, b.Subfolder)
 	}
 	s = syslib.Pj(s, b.Timestamp)
-	s = syslib.Pj(s, rx.Find(rxLib.AfterLastSlash, b.ToBackup[0])+"."+b.Format)
+	shortname := strings.Replace(
+		rx.Find(rxLib.AfterLastSlash, b.ToBackup[0]), ".", "_", -1,
+	)
+	s = syslib.Pj(s, shortname+"."+b.Format)
 	return
 }
