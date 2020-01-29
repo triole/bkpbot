@@ -1,5 +1,6 @@
 -
-    root: <CURDIR>/../testdata/fol2
+    t_backup:
+        - <CURDIR>/../testdata/fol2
     detect: true
     output_folder: /tmp
     format: txz

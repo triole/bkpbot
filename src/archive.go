@@ -5,18 +5,18 @@ import (
 	"olibs/rx"
 	"olibs/syslib"
 
-	"github.com/mholt/archiver/v3"
+	"github.com/mholt/archiver"
 )
 
 func archive(b BkpSet) {
-	lg.Logf("Archive folder %q -> %q", b.Folder, b.TargetArchive)
+	lg.Logf("Archive folder(s) %q -> %q", b.ToBackup, b.TargetArchive)
 	if *argsDebug == false {
 
 		var err error
 		switch b.Format {
-		case "txz":
-			z := archiver.TarXz{}
-			err = z.Archive([]string{b.Folder}, b.TargetArchive)
+		case "tar":
+			z := archiver.Tar{}
+			err = z.Archive(b.ToBackup, b.TargetArchive)
 		default:
 			z := archiver.Zip{
 				CompressionLevel:       flate.BestCompression,
@@ -26,10 +26,10 @@ func archive(b BkpSet) {
 				OverwriteExisting:      false,
 				ImplicitTopLevelFolder: false,
 			}
-			err = z.Archive([]string{b.Folder}, b.TargetArchive)
+			err = z.Archive(b.ToBackup, b.TargetArchive)
 		}
 		if err != nil {
-			lg.Logf("Error during compression %q -> %q: %s", b.Folder, b.TargetArchive, err)
+			lg.Logf("Error during compression %q -> %q: %s", b.ToBackup, b.TargetArchive, err)
 		}
 	}
 }
@@ -40,6 +40,6 @@ func targetArchiveName(b BkpSet) (s string) {
 		s = syslib.Pj(b.OutputFolder, b.Subfolder)
 	}
 	s = syslib.Pj(s, b.Timestamp)
-	s = syslib.Pj(s, rx.Find(rxLib.AfterLastSlash, b.Folder)+"."+b.Format)
+	s = syslib.Pj(s, rx.Find(rxLib.AfterLastSlash, b.ToBackup[0])+"."+b.Format)
 	return
 }

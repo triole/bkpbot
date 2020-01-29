@@ -7,11 +7,9 @@ import (
 	"strings"
 )
 
-func detectFolders(root string, detect bool) (fol []string) {
+func detectFolders(root string) (fol []string) {
 	fol = []string{root}
-	if detect == true {
-		fol = syslib.Find(root, ".*", "d", false)
-	}
+	fol = syslib.Find(root, ".*", "d", false)
 	return
 }
 
@@ -26,13 +24,6 @@ func removeExclusions(allFolders []string, exclusions []string) (folders []strin
 		if keep == true {
 			folders = append(folders, f)
 		}
-	}
-	return
-}
-
-func expandEnvMult(folders []string, configFileDir string) (arr []string) {
-	for _, f := range folders {
-		arr = append(arr, expandEnv(f, configFileDir))
 	}
 	return
 }

@@ -11,11 +11,16 @@ LOCAL_ARCH_BINARY=${TARGET_FOLDER}/$(shell arch)/${APP_NAME}
 
 all: run_test run_build run_compression display_version run_benchmark
 benchmark: run_benchmark
-build: run_build
+build: install_deps run_build
 compress: run_compression
 quick: run_test run_build
 version: display_version
+test: run_test
 
+install_deps:
+	go get github.com/BurntSushi/toml
+	go get github.com/pierrec/lz4
+	go get github.com/mholt/archiver
 
 run_benchmark:
 	hyperfine "${LOCAL_ARCH_BINARY} -h"

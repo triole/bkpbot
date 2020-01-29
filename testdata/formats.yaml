@@ -1,0 +1,13 @@
+-
+    to_backup:
+        - <CONFIGDIR>/fol2
+    detect: true
+    output_folder: /tmp
+    format: zip
+
+-
+    to_backup:
+        - <CONFIGDIR>/fol2
+    detect: true
+    output_folder: /tmp
+    format: tar

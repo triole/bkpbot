@@ -1,7 +1,26 @@
 -
-    root: <CONFIGDIR>/fol2
+    to_backup:
+        - <CONFIGDIR>/fol2
     detect: true
     output_folder: /tmp
     exclusions:
         - .*\/a$
     format: zip
+
+-
+    to_backup:
+        - <CONFIGDIR>/fol2
+    detect: true
+    output_folder: /tmp
+    exclusions:
+        - .*\/b$
+    format: zip
+
+-
+    to_backup:
+        - <CONFIGDIR>/fol2
+    detect: true
+    output_folder: /tmp
+    exclusions:
+        - .*\/(b|c)$
+    format: tar

@@ -53,7 +53,7 @@ func TestInitConfig(t *testing.T) {
 
 func assertInitConfig(configFile string, assertFolders []string, t *testing.T) {
 	conf := initConfig(configFile)
-	for idx, fol := range conf[0].Folders {
+	for idx, fol := range conf[0].ToBackup {
 		a := assertFolders[idx]
 		if a != fol {
 			t.Errorf("Assertion failed: %q != %q", a, fol)

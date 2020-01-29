@@ -1,10 +1,9 @@
 # currently supported custom vars for
 # root and output_folder <CURDIR>, <SCRIPTDIR>, <CONFIGDIR>
 
-# supported formats: txz, zip (defaule)
-
 -
-    root: <CURDIR>/../testdata/fol1
+    to_backup:
+        - <CURDIR>/../testdata/fol1
     detect: false
     output_folder: /tmp
     format: txz

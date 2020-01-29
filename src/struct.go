@@ -5,7 +5,7 @@ type Config []Folder
 type RichConfig []RichFolder
 
 type Folder struct {
-	Root         string   `yaml:"root"`
+	ToBackup     []string `yaml:"to_backup"`
 	Detect       bool     `yaml:"detect"`
 	Exclusions   []string `yaml:"exclusions"`
 	OutputFolder string   `yaml:"output_folder"`
@@ -13,16 +13,13 @@ type Folder struct {
 }
 
 type RichFolder struct {
-	Root         string
-	Detect       bool
-	Folders      []string
-	Exclusions   []string
+	ToBackup     []string
 	OutputFolder string
 	Format       string
 }
 
 type BkpSet struct {
-	Folder        string
+	ToBackup      []string
 	OutputFolder  string
 	Subfolder     string
 	Timestamp     string
