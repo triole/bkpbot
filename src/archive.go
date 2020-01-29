@@ -37,9 +37,6 @@ func archive(b BkpSet) {
 
 func targetArchiveName(b BkpSet) (s string) {
 	s = b.OutputFolder
-	if b.Subfolder != "" {
-		s = syslib.Pj(b.OutputFolder, b.Subfolder)
-	}
 	s = syslib.Pj(s, b.Timestamp)
 	shortname := strings.Replace(
 		rx.Find(rxLib.AfterLastSlash, b.ToBackup[0]), ".", "_", -1,

@@ -23,6 +23,7 @@ var (
 	app            = kingpin.New(appName, appDescription)
 	argsConfigfile = app.Arg("config", "config file to read the setting from").Required().String()
 	argsSubfolder  = app.Flag("subfol", "subfolder created in output directory, used for daily, weekly etc.").Short('s').Default("").String()
+	argsKeepLast   = app.Flag("keep", "keep last n backups, zero keeps all").Short('k').Default("0").Int()
 	argsLogfile    = app.Flag("logfile", "logfile which will be written").Short('l').Default(env.Logfile).String()
 	argsDebug      = app.Flag("debug", "debug mode, just print no action").Short('d').Default("false").Bool()
 

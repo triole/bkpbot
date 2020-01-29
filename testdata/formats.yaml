@@ -2,12 +2,12 @@
     to_backup:
         - <CONFIGDIR>/fol2
     detect: true
-    output_folder: /tmp
+    output_folder: /home/olaf/.backup
     format: zip
 
 -
     to_backup:
         - <CONFIGDIR>/fol2
     detect: true
-    output_folder: /tmp
+    output_folder: /home/olaf/.backup
     format: tar

@@ -50,7 +50,6 @@ func makeRichConfig(config Config, configFileDir string) (richConfig RichConfig)
 			ToBackup:     toBackup,
 			OutputFolder: expandEnv(e.OutputFolder, configFileDir),
 			Format:       e.Format,
-			KeepLast:     e.KeepLast,
 		}
 		richConfig = append(richConfig, r)
 	}
