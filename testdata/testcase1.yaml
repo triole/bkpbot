@@ -5,5 +5,5 @@
     to_backup:
         - <CURDIR>/../testdata/fol1
     detect: false
-    output_folder: /tmp
-    format: txz
+    output_folder: /tmp/bkpbot_test
+    format: zip

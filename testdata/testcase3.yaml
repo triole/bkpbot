@@ -2,7 +2,7 @@
     to_backup:
         - <CURDIR>/../testdata/fol2
     detect: true
-    output_folder: /tmp
+    output_folder: /tmp/bkpbot_test
     exclusions:
         - .*\/a$
-    format: txz
+    format: zip

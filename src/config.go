@@ -12,7 +12,7 @@ import (
 
 func initConfig(configFile string) (rc RichConfig) {
 	configFile = syslib.Pabs(configFile)
-	configDir := rx.Find(rxLib.UpToLastSlash, configFile)
+	configDir := rx.Find(rxlib.UpToLastSlash, configFile)
 	c := readConfigYaml(configFile)
 	rc = makeRichConfig(c, configDir)
 	return
@@ -38,7 +38,7 @@ func makeRichConfig(config Config, configFileDir string) (richConfig RichConfig)
 		for _, f := range e.ToBackup {
 			t := expandEnv(f, configFileDir)
 			if e.Detect == true {
-				toBackup = append(toBackup, detectFolders(t)...)
+				toBackup = append(toBackup, detectFolders(t, ".*")...)
 			} else {
 				toBackup = append(toBackup, t)
 			}

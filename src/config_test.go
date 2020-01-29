@@ -44,8 +44,7 @@ func TestInitConfig(t *testing.T) {
 	assertInitConfig(
 		"../testdata/testcase5.yaml",
 		[]string{
-			syslib.Pj(basedir, "fol2/b"),
-			syslib.Pj(basedir, "fol2/c"),
+			syslib.Pj(basedir, "fol2/a"),
 		},
 		t,
 	)

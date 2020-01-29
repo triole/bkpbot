@@ -9,8 +9,8 @@ import (
 )
 
 func cleanUp(folder string, keepLast int) {
-	folders := detectFolders(folder)
-	lg.Logf("Clean up. Keep only last %v archives of %v", *argsKeepLast, len(folders))
+	folders := detectFolders(folder, `.*\/[0-9]{8}_[0-9]{6}$`)
+	lg.Logf("Clean up. Keep last %v of %v archives", *argsKeepLast, len(folders))
 	sort.Strings(folders)
 	if len(folders) > keepLast {
 		for _, folder := range folders[:len(folders)-keepLast] {
@@ -33,9 +33,9 @@ func stringInSlice(a string, list []string) bool {
 	return false
 }
 
-func detectFolders(root string) (fol []string) {
+func detectFolders(root, rx string) (fol []string) {
 	fol = []string{root}
-	fol = syslib.Find(root, ".*", "d", false)
+	fol = syslib.Find(root, rx, "d", false)
 	sort.Strings(fol)
 	return
 }

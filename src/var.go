@@ -27,7 +27,7 @@ var (
 	argsLogfile    = app.Flag("logfile", "logfile which will be written").Short('l').Default(env.Logfile).String()
 	argsDebug      = app.Flag("debug", "debug mode, just print no action").Short('d').Default("false").Bool()
 
-	rxLib = rx.InitLib()
+	rxlib = rx.InitLib()
 )
 
 func argparse() {

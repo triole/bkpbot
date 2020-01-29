@@ -2,25 +2,25 @@
     to_backup:
         - <CONFIGDIR>/fol2
     detect: true
-    output_folder: /tmp
-    exclusions:
-        - .*\/a$
-    format: zip
-
--
-    to_backup:
-        - <CONFIGDIR>/fol2
-    detect: true
-    output_folder: /tmp
-    exclusions:
-        - .*\/b$
-    format: zip
-
--
-    to_backup:
-        - <CONFIGDIR>/fol2
-    detect: true
-    output_folder: /tmp
+    output_folder: /tmp/bkpbot_test
     exclusions:
         - .*\/(b|c)$
+    format: zip
+
+-
+    to_backup:
+        - <CONFIGDIR>/fol2
+    detect: true
+    output_folder: /tmp/bkpbot_test
+    exclusions:
+        - .*\/(a|c)$
+    format: tar
+
+-
+    to_backup:
+        - <CONFIGDIR>/fol2
+    detect: true
+    output_folder: /tmp/bkpbot_test
+    exclusions:
+        - .*\/(a|b)$
     format: tar

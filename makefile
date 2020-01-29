@@ -23,9 +23,13 @@ install_deps:
 	go get github.com/mholt/archiver
 
 run_benchmark:
+	@echo ""
+	@echo "\n\033[0;32mRun Benchmark\033[0m"
 	hyperfine "${LOCAL_ARCH_BINARY} -h"
 
 run_build:
+	@echo ""
+	@echo "\n\033[0;32mRun builds\033[0m"
 	maker/build.sh \
 		"${SOURCE_DIR}" \
 		"${APP_NAME}" \
@@ -36,7 +40,10 @@ run_compression:
 	maker/compress.sh "${TARGET_FOLDER}"
 
 run_test:
+	@echo ""
+	@echo "\n\033[0;32mRun tests\033[0m"
 	go test -cover -bench=. ${SOURCE_DIR}/*.go
+	testdata/test-keep-last.sh
 
 display_version:
 	${LOCAL_ARCH_BINARY} -V

@@ -1,6 +1,6 @@
 -
     to_backup:
-        - <CURDIR>/../testdata/fol2
-    detect: true
+        - <CURDIR>/../testdata/fol1
+    detect: false
     output_folder: /tmp/bkpbot_test
     format: tar
