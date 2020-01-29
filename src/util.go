@@ -12,11 +12,15 @@ func cleanUp(folder string, keepLast int) {
 	folders := detectFolders(folder)
 	lg.Logf("Clean up. Keep only last %v archives of %v", *argsKeepLast, len(folders))
 	sort.Strings(folders)
-	for _, folder := range folders[:len(folders)-keepLast] {
-		lg.Logf("Delete folder %q", folder)
-		if *argsDebug == false {
-			os.RemoveAll(folder)
+	if len(folders) > keepLast {
+		for _, folder := range folders[:len(folders)-keepLast] {
+			lg.Logf("Delete folder %q", folder)
+			if *argsDebug == false {
+				os.RemoveAll(folder)
+			}
 		}
+	} else {
+		lg.Logf("Keep all backups")
 	}
 }
 
