@@ -20,16 +20,20 @@ func main() {
 
 	// make backups
 	for idx, e := range conf {
-		lg.Logf("Run backup of set %v consisting of %v folders", idx, len(e.ToBackup))
-		b := BkpSet{
-			ToBackup:     e.ToBackup,
-			OutputFolder: e.OutputFolder,
-			Subfolder:    *argsSubfolder,
-			Timestamp:    timestamp,
-			Format:       e.Format,
+		if len(e.ToBackup) > 0 {
+			lg.Logf("Run backup of set %v consisting of %v folders", idx, len(e.ToBackup))
+			b := BkpSet{
+				ToBackup:     e.ToBackup,
+				OutputFolder: e.OutputFolder,
+				Subfolder:    *argsSubfolder,
+				Timestamp:    timestamp,
+				Format:       e.Format,
+			}
+			b.TargetArchive = targetArchiveName(b)
+			archive(b)
+		} else {
+			lg.Logf("Skip set because empty. Check if possible detection works. Settings: ToBackup %q, Outfolder %q, Format: %q", e.ToBackup, e.OutputFolder, e.Format)
 		}
-		b.TargetArchive = targetArchiveName(b)
-		archive(b)
 	}
 	if *argsDebug == true {
 		lg.Log("Nothing happened. Just ran in debug.")

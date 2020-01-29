@@ -43,12 +43,14 @@ func makeRichConfig(config Config, configFileDir string) (richConfig RichConfig)
 				toBackup = append(toBackup, t)
 			}
 		}
-		toBackup = removeExclusions(toBackup, e.Exclusions)
-
+		if len(e.Exclusions) > 0 {
+			toBackup = removeExclusions(toBackup, e.Exclusions)
+		}
 		r := RichFolder{
 			ToBackup:     toBackup,
 			OutputFolder: expandEnv(e.OutputFolder, configFileDir),
 			Format:       e.Format,
+			KeepLast:     e.KeepLast,
 		}
 		richConfig = append(richConfig, r)
 	}

@@ -1,0 +1,7 @@
+-
+    to_backup:
+        - <CONFIGDIR>/fol1
+    detect: false
+    output_folder: /tmp
+    format: tar
+    keep_last: 5
