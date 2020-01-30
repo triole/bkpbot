@@ -13,9 +13,9 @@ Configuration file examples are in `testdata` or `howto`.
 Backups may be launched by crontab. A few examples:
 
 ```crontab
-5 5 * * * /home/ole/.backup/run.sh daily 9
-3 3 * * 1 /home/ole/.backup/run.sh weekly 11
-1 1 1 * * /home/ole/.backup/run.sh monthly 13
+5 5 * * * /home/ole/.backup/run/run.sh daily 9
+3 3 * * 1 /home/ole/.backup/run/run.sh weekly 11
+1 1 1 * * /home/ole/.backup/run/run.sh monthly 13
 
 # only run on odd days
 0 0 1-31/2 * * /home/ole/.backup/run.sh daily 9
