@@ -2,5 +2,15 @@
     to_backup:
         - <CURDIR>/../testdata/fol2
     detect: true
-    output_folder: /tmp/bkpbot_test
-    format: tar
+    output:
+        name: bkp1
+        folder: /tmp/bkpbot_test
+        format: tar
+-
+    to_backup:
+        - <CURDIR>/../testdata/fol2
+    detect: true
+    output:
+        name: bkp2
+        folder: /tmp/bkpbot_test
+        format: zip

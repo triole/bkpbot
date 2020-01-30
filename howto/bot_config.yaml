@@ -1,9 +1,9 @@
 -
     to_backup:
-        - <CONFIGDIR>/fol2
+        - /home/ole/wostok
     detect: true
     exclusions:
-        - .*\/a$
+        - .*\/_media$
     output:
-        folder: /tmp/bkpbot_test
+        folder: <CONFIGDIR>/bkp
         format: zip

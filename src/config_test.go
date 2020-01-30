@@ -2,6 +2,7 @@ package main
 
 import (
 	"olibs/syslib"
+	"sort"
 	"testing"
 )
 
@@ -52,10 +53,21 @@ func TestInitConfig(t *testing.T) {
 
 func assertInitConfig(configFile string, assertFolders []string, t *testing.T) {
 	conf := initConfig(configFile)
-	for idx, fol := range conf[0].ToBackup {
-		a := assertFolders[idx]
-		if a != fol {
-			t.Errorf("Assertion failed: %q != %q", a, fol)
+	b := conf[0].ToBackup[0]
+	sort.Strings(assertFolders)
+	sort.Strings(b)
+	if len(assertFolders) != len(b) {
+		printFail(assertFolders, b, configFile, t)
+	} else {
+		for idx, fol := range b {
+			a := assertFolders[idx]
+			if a != fol {
+				printFail(assertFolders, b, configFile, t)
+			}
 		}
 	}
+}
+
+func printFail(a, b []string, c string, t *testing.T) {
+	t.Errorf("Assertion failed: %q != %q, Config file: %q", a, b, c)
 }

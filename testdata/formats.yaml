@@ -2,12 +2,14 @@
     to_backup:
         - <CONFIGDIR>/fol2
     detect: true
-    output_folder: /tmp/bkpbot_test
-    format: zip
+    output:
+        folder: /tmp/bkpbot_test
+        format: zip
 
 -
     to_backup:
         - <CONFIGDIR>/fol2
     detect: true
-    output_folder: /tmp/bkpbot_test
-    format: tar
+    output:
+        folder: /tmp/bkpbot_test
+        format: tar

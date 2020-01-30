@@ -35,7 +35,6 @@ func argparse() {
 	app.HelpFlag.Short('h')
 	app.VersionFlag.Short('V')
 	kingpin.MustParse(app.Parse(os.Args[1:]))
-	// maybe reinitialize logging if different logfile was set by arg call
 	if *argsLogfile != env.Logfile {
 		lg = logging.Init(*argsLogfile)
 	}

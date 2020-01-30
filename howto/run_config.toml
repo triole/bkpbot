@@ -1,0 +1,16 @@
+mods_to_run_before = [
+    "dockers_start"
+]
+
+mods_to_run_after = [
+    "dockers_stop",
+    "fix_file_permissions"
+]
+
+relevant_dockers = [
+    "bb3-gogs",
+    "bb4-radicale"
+]
+
+my_user = "ole"
+my_home = "/home/ole"

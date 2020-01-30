@@ -1,8 +1,10 @@
 package main
 
 import (
+	"olibs/rx"
 	"olibs/syslib"
 	"olibs/times"
+	"strings"
 )
 
 func main() {
@@ -20,32 +22,55 @@ func main() {
 	}
 
 	// make backups
-	for idx, e := range conf {
-		if len(e.ToBackup) > 0 {
-			lg.Logf("Run backup of set %v consisting of %v folders", idx, len(e.ToBackup))
-			outputFolder := e.OutputFolder
-			if *argsSubfolder != "" {
-				outputFolder = syslib.Pj(e.OutputFolder, *argsSubfolder)
-			}
-			b := BkpSet{
-				ToBackup:     e.ToBackup,
-				OutputFolder: outputFolder,
-				Timestamp:    timestamp,
-				Format:       e.Format,
-			}
-			b.TargetArchive = targetArchiveName(b)
-			archive(b)
-			if *argsKeepLast > 0 {
-				cleanUp(outputFolder, *argsKeepLast)
+	lg.Logf("Process config having %v entries %+v", len(conf), conf)
+	for _, bkpSet := range conf {
+		if len(bkpSet.ToBackup) > 0 {
+			for _, toBackup := range bkpSet.ToBackup {
+				outputFolder := bkpSet.Output.Folder
+				if *argsSubfolder != "" {
+					outputFolder = syslib.Pj(bkpSet.Output.Folder, *argsSubfolder)
+				}
+
+				bs := BkpSet{
+					Timestamp: timestamp,
+					ToBackup:  toBackup,
+					Output: Output{
+						Name:   bkpSet.Output.Name,
+						Folder: outputFolder,
+						Format: bkpSet.Output.Format,
+					},
+				}
+				bs.TargetArchive = targetArchiveName(bs)
+
+				archive(bs)
+				if *argsKeepLast > 0 {
+					cleanUp(outputFolder, *argsKeepLast)
+				}
 			}
 		} else {
-			lg.Logf("Skip set because empty. Check if possible detection works. Settings: ToBackup %q, Outfolder %q, Format: %q", e.ToBackup, e.OutputFolder, e.Format)
+			lg.Logf(
+				"Skip set because empty. Check if possible detection works."+
+					"Settings: ToBackup %q, Outfolder %q, Format: %q",
+				bkpSet.ToBackup, bkpSet.Output.Folder, bkpSet.Output.Format,
+			)
 		}
 	}
 	if *argsDebug == true {
 		lg.Log("Nothing happened. Just ran in debug.")
 	}
+}
 
-	// clean up
+func targetArchiveName(bs BkpSet) (s string) {
+	s = bs.Output.Folder
+	s = syslib.Pj(s, bs.Timestamp)
 
+	shortname := bs.Output.Name
+	if shortname == "" {
+		shortname = strings.Replace(
+			rx.Find(rxlib.AfterLastSlash, bs.ToBackup[0]), ".", "_", -1,
+		)
+	}
+
+	s = syslib.Pj(s, shortname+"."+bs.Output.Format)
+	return
 }

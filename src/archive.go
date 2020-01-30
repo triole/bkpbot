@@ -4,24 +4,23 @@ import (
 	"compress/flate"
 	"olibs/rx"
 	"olibs/syslib"
-	"strings"
 
 	"github.com/mholt/archiver"
 )
 
-func archive(b BkpSet) {
-	lg.Logf("Archive folder(s) %q -> %q", b.ToBackup, b.TargetArchive)
+func archive(bs BkpSet) {
+	lg.Logf("Run backup %q -> %q", bs.ToBackup, bs.TargetArchive)
 	if *argsDebug == false {
 
 		// make output folder although zip does automatically
-		op := rx.Find(rxlib.UpToLastSlash, b.TargetArchive)
+		op := rx.Find(rxlib.UpToLastSlash, bs.TargetArchive)
 		syslib.MkdirAll(op)
 
 		var err error
-		switch b.Format {
+		switch bs.Output.Format {
 		case "tar":
 			z := archiver.Tar{}
-			err = z.Archive(b.ToBackup, b.TargetArchive)
+			err = z.Archive(bs.ToBackup, bs.TargetArchive)
 		default:
 			z := archiver.Zip{
 				CompressionLevel:       flate.BestCompression,
@@ -31,20 +30,10 @@ func archive(b BkpSet) {
 				OverwriteExisting:      false,
 				ImplicitTopLevelFolder: false,
 			}
-			err = z.Archive(b.ToBackup, b.TargetArchive)
+			err = z.Archive(bs.ToBackup, bs.TargetArchive)
 		}
 		if err != nil {
-			lg.Logf("Error during compression %q -> %q: %s", b.ToBackup, b.TargetArchive, err)
+			lg.Logf("Error during compression %q -> %q: %s", bs.ToBackup, bs.TargetArchive, err)
 		}
 	}
-}
-
-func targetArchiveName(b BkpSet) (s string) {
-	s = b.OutputFolder
-	s = syslib.Pj(s, b.Timestamp)
-	shortname := strings.Replace(
-		rx.Find(rxlib.AfterLastSlash, b.ToBackup[0]), ".", "_", -1,
-	)
-	s = syslib.Pj(s, shortname+"."+b.Format)
-	return
 }

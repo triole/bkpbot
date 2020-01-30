@@ -12,7 +12,7 @@ func cleanUp(folder string, keepLast int) {
 	folders := detectFolders(folder, `.*\/[0-9]{8}_[0-9]{6}$`)
 	lg.Logf("Clean up. Keep last %v of %v archives", *argsKeepLast, len(folders))
 	sort.Strings(folders)
-	if len(folders) > keepLast {
+	if len(folders) > keepLast && keepLast > 0 {
 		for _, folder := range folders[:len(folders)-keepLast] {
 			lg.Logf("Delete folder %q", folder)
 			if *argsDebug == false {
@@ -40,16 +40,12 @@ func detectFolders(root, rx string) (fol []string) {
 	return
 }
 
-func removeExclusions(allFolders []string, exclusions []string) (folders []string) {
-	for _, f := range allFolders {
-		keep := true
-		for _, e := range exclusions {
-			if rx.Match(e, f) {
-				keep = false
-			}
-		}
-		if keep == true {
-			folders = append(folders, f)
+func shouldExclude(folder string, exclusions []string) (exl bool) {
+	exl = false
+	for _, e := range exclusions {
+		if rx.Match(e, folder) == true {
+			exl = true
+			break
 		}
 	}
 	return

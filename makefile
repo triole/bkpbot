@@ -13,9 +13,10 @@ all: run_test run_build run_compression display_version run_benchmark
 benchmark: run_benchmark
 build: install_deps run_build
 compress: run_compression
-quick: run_test run_build
+quick: run_unittest run_build
 version: display_version
-test: run_test
+unittest: run_unittest
+test: run_unittest run_test
 
 install_deps:
 	go get github.com/BurntSushi/toml
@@ -23,13 +24,9 @@ install_deps:
 	go get github.com/mholt/archiver
 
 run_benchmark:
-	@echo ""
-	@echo "\n\033[0;32mRun Benchmark\033[0m"
 	hyperfine "${LOCAL_ARCH_BINARY} -h"
 
 run_build:
-	@echo ""
-	@echo "\n\033[0;32mRun builds\033[0m"
 	maker/build.sh \
 		"${SOURCE_DIR}" \
 		"${APP_NAME}" \
@@ -39,10 +36,10 @@ run_build:
 run_compression:
 	maker/compress.sh "${TARGET_FOLDER}"
 
-run_test:
-	@echo ""
-	@echo "\n\033[0;32mRun tests\033[0m"
+run_unittest:
 	go test -cover -bench=. ${SOURCE_DIR}/*.go
+
+run_test:
 	testdata/test-keep-last.sh
 
 display_version:

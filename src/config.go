@@ -6,6 +6,7 @@ import (
 	"log"
 	"olibs/rx"
 	"olibs/syslib"
+	"os"
 
 	yaml "gopkg.in/yaml.v2"
 )
@@ -31,27 +32,49 @@ func readConfigYaml(filename string) (c Config) {
 	return
 }
 
+// func appendConsideringExclusion()
 func makeRichConfig(config Config, configFileDir string) (richConfig RichConfig) {
-	for _, e := range config {
+	for _, bs := range config {
 
-		var toBackup []string
-		for _, f := range e.ToBackup {
-			t := expandEnv(f, configFileDir)
-			if e.Detect == true {
-				toBackup = append(toBackup, detectFolders(t, ".*")...)
+		var toBackup [][]string
+		for _, f := range bs.ToBackup {
+			folder := expandEnv(f, configFileDir)
+
+			// check if folder exists, only act if it does
+			if _, err := os.Stat(folder); !os.IsNotExist(err) {
+				if shouldExclude(folder, bs.Exclusions) == false {
+					if bs.Detect == true {
+						folders := detectFolders(folder, ".*")
+						var foldersArr []string
+						for _, folder := range folders {
+							if shouldExclude(folder, bs.Exclusions) == false {
+								foldersArr = append(foldersArr, folder)
+							}
+						}
+						toBackup = append(toBackup, foldersArr)
+					} else {
+						toBackup = append(toBackup, []string{folder})
+					}
+				}
 			} else {
-				toBackup = append(toBackup, t)
+				lg.Logf("Folder or file does not exist. Not processing %q", folder)
 			}
 		}
-		if len(e.Exclusions) > 0 {
-			toBackup = removeExclusions(toBackup, e.Exclusions)
+
+		format := bs.Output.Format
+		if format == "" {
+			format = "zip"
 		}
-		r := RichFolder{
-			ToBackup:     toBackup,
-			OutputFolder: expandEnv(e.OutputFolder, configFileDir),
-			Format:       e.Format,
+
+		rc := RichFolder{
+			ToBackup: toBackup,
+			Output: Output{
+				Name:   bs.Output.Name,
+				Folder: expandEnv(bs.Output.Folder, configFileDir),
+				Format: format,
+			},
 		}
-		richConfig = append(richConfig, r)
+		richConfig = append(richConfig, rc)
 	}
 	return
 }
