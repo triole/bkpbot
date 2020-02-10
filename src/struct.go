@@ -18,7 +18,7 @@ type Output struct {
 }
 
 type RichFolder struct {
-	ToBackup [][]string
+	ToBackup []string
 	Output   Output
 }
 

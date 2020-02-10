@@ -36,7 +36,7 @@ func readConfigYaml(filename string) (c Config) {
 func makeRichConfig(config Config, configFileDir string) (richConfig RichConfig) {
 	for _, bs := range config {
 
-		var toBackup [][]string
+		var toBackup []string
 		for _, f := range bs.ToBackup {
 			folder := expandEnv(f, configFileDir)
 
@@ -45,15 +45,13 @@ func makeRichConfig(config Config, configFileDir string) (richConfig RichConfig)
 				if shouldExclude(folder, bs.Exclusions) == false {
 					if bs.Detect == true {
 						folders := detectFolders(folder, ".*")
-						var foldersArr []string
 						for _, folder := range folders {
 							if shouldExclude(folder, bs.Exclusions) == false {
-								foldersArr = append(foldersArr, folder)
+								toBackup = append(toBackup, folder)
 							}
 						}
-						toBackup = append(toBackup, foldersArr)
 					} else {
-						toBackup = append(toBackup, []string{folder})
+						toBackup = append(toBackup, folder)
 					}
 				}
 			} else {

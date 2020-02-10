@@ -25,27 +25,25 @@ func main() {
 	lg.Logf("Process config having %v entries %+v", len(conf), conf)
 	for _, bkpSet := range conf {
 		if len(bkpSet.ToBackup) > 0 {
-			for _, toBackup := range bkpSet.ToBackup {
-				outputFolder := bkpSet.Output.Folder
-				if *argsSubfolder != "" {
-					outputFolder = syslib.Pj(bkpSet.Output.Folder, *argsSubfolder)
-				}
+			outputFolder := bkpSet.Output.Folder
+			if *argsSubfolder != "" {
+				outputFolder = syslib.Pj(bkpSet.Output.Folder, *argsSubfolder)
+			}
 
-				bs := BkpSet{
-					Timestamp: timestamp,
-					ToBackup:  toBackup,
-					Output: Output{
-						Name:   bkpSet.Output.Name,
-						Folder: outputFolder,
-						Format: bkpSet.Output.Format,
-					},
-				}
-				bs.TargetArchive = targetArchiveName(bs)
+			bs := BkpSet{
+				Timestamp: timestamp,
+				ToBackup:  bkpSet.ToBackup,
+				Output: Output{
+					Name:   bkpSet.Output.Name,
+					Folder: outputFolder,
+					Format: bkpSet.Output.Format,
+				},
+			}
+			bs.TargetArchive = targetArchiveName(bs)
 
-				archive(bs)
-				if *argsKeepLast > 0 {
-					cleanUp(outputFolder, *argsKeepLast)
-				}
+			archive(bs)
+			if *argsKeepLast > 0 {
+				cleanUp(outputFolder, *argsKeepLast)
 			}
 		} else {
 			lg.Logf(

@@ -53,7 +53,7 @@ func TestInitConfig(t *testing.T) {
 
 func assertInitConfig(configFile string, assertFolders []string, t *testing.T) {
 	conf := initConfig(configFile)
-	b := conf[0].ToBackup[0]
+	b := conf[0].ToBackup
 	sort.Strings(assertFolders)
 	sort.Strings(b)
 	if len(assertFolders) != len(b) {
