@@ -20,7 +20,7 @@ while read line; do
     arch=$(echo "${line}" | grep -Po "^[a-zA-Z0-9_]+")
     flags=$(echo "${line}" | grep -Po "(?<=:).*")
 
-    cmd="CGO_ENABLED=0 ${flags}
+    cmd="CGO_ENABLED=0 ${flags} \
     	go build -ldflags \"-s -w -X 'main.BUILDTAGS={ \
     		_subversion: ${GIT_COMMIT_NO}, \
     		Author: ${AUTHOR}, \

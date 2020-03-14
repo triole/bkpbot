@@ -9,7 +9,7 @@ BINDATA=${SOURCE_DIR}/server/bindata.go
 
 LOCAL_ARCH_BINARY=${TARGET_FOLDER}/$(shell arch)/${APP_NAME}
 
-all: run_test run_build run_compression display_version run_benchmark
+all: run_test run_build display_version run_benchmark
 benchmark: run_benchmark
 build: install_deps run_build
 compress: run_compression
