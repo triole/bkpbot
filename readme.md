@@ -1,5 +1,10 @@
 # Bkpbot
 
+<!--- mdtoc: toc begin -->
+
+1.	[How to use?](#how-to-use-)
+2.	[Crontab](#crontab)<!--- mdtoc: toc end -->
+
 My personal backup solution. Archives a list of files into a single file. Supported formats are `zip` and `tar`.
 
 ## How to use?

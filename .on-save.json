@@ -1,8 +1,8 @@
 [{
     "srcDir": ".",
     "destDir": "/tmp/.on-save",
-    "files": "**/*.go",
-    "command": "goimports -w '${srcFile}' && go fmt '${srcFile}' ",
-    "showOutput": true,
+    "files": "**",
+    "command": "coda -t '${srcFile}'",
+    "showOutput": false,
     "showError": false
 }]
