@@ -9,7 +9,10 @@ import (
 )
 
 func runBetween(cmd string, point string, prefix string) {
-	_, err := syslib.RunCmdErrMsg(cmd)
+	var err string
+	if *argsDebug == false {
+		_, err = syslib.RunCmdErrMsg(cmd)
+	}
 	if err == "" {
 		lg.Logf("%s Run %s %q, OK", prefix, point, cmd)
 	} else {
@@ -20,13 +23,15 @@ func runBetween(cmd string, point string, prefix string) {
 func archive(bs tBkpSet) {
 	prefix := "[" + bs.Name + "]"
 	lg.Logf("%s Start backup %q", prefix, bs.Name)
+
+	// run before
+	for _, cmd := range bs.RunBefore {
+		runBetween(cmd, "before", prefix)
+	}
+
+	lg.Logf("%s Make %s archive %q -> %q ", prefix, bs.OutputFormat, bs.ToBackup, bs.TargetArchive)
+
 	if *argsDebug == false {
-
-		// run before
-		for _, cmd := range bs.RunBefore {
-			runBetween(cmd, "before", prefix)
-		}
-
 		// make output folder although zip does automatically
 		op := rx.Find(rxlib.UpToLastSlash, bs.TargetArchive)
 		syslib.MkdirAll(op)
@@ -35,7 +40,6 @@ func archive(bs tBkpSet) {
 		switch bs.OutputFormat {
 		case "tar":
 			z := archiver.Tar{}
-			lg.Logf("%s Tar archive %q -> %q ", prefix, bs.ToBackup, bs.TargetArchive)
 			err = z.Archive(bs.ToBackup, bs.TargetArchive)
 			lg.Logf("%s Archiving finished", prefix)
 		default:
@@ -47,7 +51,6 @@ func archive(bs tBkpSet) {
 				OverwriteExisting:      false,
 				ImplicitTopLevelFolder: false,
 			}
-			lg.Logf("%s Zip archive %q -> %q ", prefix, bs.ToBackup, bs.TargetArchive)
 			err = z.Archive(bs.ToBackup, bs.TargetArchive)
 			lg.Logf("%s Archiving finished", prefix)
 		}
@@ -55,9 +58,10 @@ func archive(bs tBkpSet) {
 			lg.Logf("%s Error during compression %q -> %q: %s", prefix, bs.ToBackup, bs.TargetArchive, err)
 		}
 
-		// run after
-		for _, cmd := range bs.RunAfter {
-			runBetween(cmd, "after", prefix)
-		}
+	}
+
+	// run after
+	for _, cmd := range bs.RunAfter {
+		runBetween(cmd, "after", prefix)
 	}
 }
