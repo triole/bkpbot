@@ -1,6 +1,10 @@
-[1]
+[vars]
+basedir = "/tmp/bkpbot/testdata"
+
+[jobs]
+[jobs.1]
 to_backup = [
-    "<CURDIR>/../testdata/fol2"
+    "{{BASEDIR}}/fol2"
 ]
 detect = true
 output_name = "bkp1"
@@ -16,9 +20,9 @@ run_after = [
     "commands to run after 2"
 ]
 
-[2]
+[jobs.2]
 to_backup = [
-    "<CURDIR>/../testdata/fol2"
+    "{{BASEDIR}}/fol2"
 ]
 detect = true
 output_name = "bkp2"

@@ -3,37 +3,34 @@ package main
 import (
 	"encoding/json"
 	"io/ioutil"
-	"olibs/rx"
-	"olibs/syslib"
 	"os"
 
 	"github.com/BurntSushi/toml"
 )
 
 func initConfig(configFile string) (rc tRichConfig) {
-	configFile = syslib.Pabs(configFile)
-	configDir := rx.Find(rxlib.UpToLastSlash, configFile)
+	configFile = pabs(configFile)
 	c := readTomlConfig(configFile)
-	rc = makeRichConfig(c, configDir)
+	rc = makeRichConfig(c)
 	return
 }
 
 func readTomlConfig(filename string) (c tConfig) {
-	content := syslib.ReadFileToString(filename)
+	content := readFileToString(filename)
 	if _, err := toml.Decode(string(content), &c); err != nil {
 		lg.Logf("Exception reading config %q. %s\n", filename, err)
-		syslib.X(1)
+		x(1)
 	}
 	return
 }
 
-func makeRichConfig(config tConfig, configFileDir string) (richConfig tRichConfig) {
+func makeRichConfig(config tConfig) (richConfig tRichConfig) {
 	richConfig = make(tRichConfig)
-	for name, bs := range config {
+	for name, bs := range config.Jobs {
 
 		var toBackup []string
 		for _, f := range bs.ToBackup {
-			folder := expandEnv(f, configFileDir)
+			folder := expandVars(f, config.Vars)
 
 			// check if folder exists, only act if it does
 			if _, err := os.Stat(folder); !os.IsNotExist(err) {
@@ -50,7 +47,7 @@ func makeRichConfig(config tConfig, configFileDir string) (richConfig tRichConfi
 					}
 				}
 			} else {
-				lg.Logf("Folder or file does not exist. Not processing %q", folder)
+				lg.Logf("Error: File or folder does not exist. Not processing %q", folder)
 			}
 		}
 
@@ -62,7 +59,7 @@ func makeRichConfig(config tConfig, configFileDir string) (richConfig tRichConfi
 		rc := tRichFolder{
 			ToBackup:     toBackup,
 			OutputName:   bs.OutputName,
-			OutputFolder: expandEnv(bs.OutputFolder, configFileDir),
+			OutputFolder: expandVars(bs.OutputFolder, config.Vars),
 			OutputFormat: format,
 			RunBefore:    bs.RunBefore,
 			RunAfter:     bs.RunAfter,

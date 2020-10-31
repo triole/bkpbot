@@ -1,6 +1,7 @@
-[1]
+[jobs]
+[jobs.1]
 to_backup = [
-    "<CONFIGDIR>/fol2"
+    "/tmp/bkpbot/testdata/fol2"
 ]
 detect = true
 exclusions = [

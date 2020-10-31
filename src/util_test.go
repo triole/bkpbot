@@ -2,17 +2,16 @@ package main
 
 import (
 	"math/rand"
-	"olibs/syslib"
 	"strconv"
 	"testing"
 )
 
 func TestCleanup(t *testing.T) {
 	basedir := "/tmp/bkpbot_test/unittest"
-	syslib.MkdirAll(syslib.Pj(basedir, "hello"))
-	syslib.MkdirAll(syslib.Pj(basedir, "world"))
+	mkdirAll(pj(basedir, "hello"))
+	mkdirAll(pj(basedir, "world"))
 	for i := 1; i <= 10; i++ {
-		syslib.MkdirAll(syslib.Pj(basedir, randomBkpFolder()))
+		mkdirAll(pj(basedir, randomBkpFolder()))
 	}
 	cleanUp(basedir, 0)
 	cleanUp(basedir, 5)

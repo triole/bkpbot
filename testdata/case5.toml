@@ -1,32 +1,37 @@
-[1]
+[vars]
+basedir = "/tmp/bkpbot"
+outfolder = "/tmp/bkpbot/output"
+
+[jobs]
+[jobs.1]
 to_backup = [
-    "<CONFIGDIR>/fol2"
+    "{{BASEDIR}}/testdata/fol2"
 ]
 detect = true
 exclusions = [
     ".*/(b|c)$"
 ]
-output_folder = "/tmp/bkpbot_test"
+output_folder = "{{OUTFOLDER}}"
 output_format = "zip"
 
-[2]
+[jobs.2]
 to_backup = [
-    "<CONFIGDIR>/fol2"
+    "{{BASEDIR}}/testdata/fol2"
 ]
 detect = true
 exclusions = [
     ".*/(a|c)$"
 ]
-output_folder = "/tmp/bkpbot_test"
+output_folder = "{{OUTFOLDER}}"
 output_format = "tar"
 
-[3]
+[jobs.3]
 to_backup = [
-    "<CONFIGDIR>/fol2"
+    "{{BASEDIR}}/testdata/fol2"
 ]
 detect = true
 exclusions = [
     ".*/(a|b)$"
 ]
-output_folder = "/tmp/bkpbot_test"
+output_folder = "{{OUTFOLDER}}"
 output_format = "tar"

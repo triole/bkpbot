@@ -2,7 +2,6 @@ package main
 
 import (
 	"olibs/rx"
-	"olibs/syslib"
 	"os"
 	"sort"
 	"strings"
@@ -35,7 +34,7 @@ func stringInSlice(a string, list []string) bool {
 
 func detectFolders(root, rx string) (fol []string) {
 	fol = []string{root}
-	fol = syslib.Find(root, rx, "d", false)
+	fol = find(root, rx, "d", false)
 	sort.Strings(fol)
 	return
 }
@@ -51,11 +50,10 @@ func shouldExclude(folder string, exclusions []string) (exl bool) {
 	return
 }
 
-func expandEnv(folder string, configFileDir string) (s string) {
-	s = os.ExpandEnv(folder)
-	s = strings.Replace(s, "<CURDIR>", env.Curdir, -1)
-	s = strings.Replace(s, "<SCRIPTDIR>", env.Scriptdir, -1)
-	s = strings.Replace(s, "<CONFIGDIR>", configFileDir, -1)
-	s = syslib.Pabs(s)
+func expandVars(folder string, vars tVars) (s string) {
+	s = folder
+	for key, val := range vars {
+		s = strings.Replace(s, "{{"+strings.ToUpper(key)+"}}", val, -1)
+	}
 	return
 }

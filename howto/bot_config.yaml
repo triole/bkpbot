@@ -1,9 +1,0 @@
--
-    to_backup:
-        - /home/ole/wostok
-    detect: true
-    exclusions:
-        - .*\/_media$
-    output:
-        folder: <CONFIGDIR>/bkp
-        format: zip

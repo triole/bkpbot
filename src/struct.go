@@ -1,6 +1,12 @@
 package main
 
-type tConfig map[string]tFolder
+type tConfig struct {
+	Vars tVars
+	Jobs tJobs
+}
+
+type tVars map[string]string
+type tJobs map[string]tFolder
 
 type tRichConfig map[string]tRichFolder
 

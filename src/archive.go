@@ -3,7 +3,6 @@ package main
 import (
 	"compress/flate"
 	"olibs/rx"
-	"olibs/syslib"
 
 	"github.com/mholt/archiver"
 )
@@ -34,7 +33,7 @@ func archive(bs tBkpSet) {
 	if *argsDebug == false {
 		// make output folder although zip does automatically
 		op := rx.Find(rxlib.UpToLastSlash, bs.TargetArchive)
-		syslib.MkdirAll(op)
+		mkdirAll(op)
 
 		var err error
 		switch bs.OutputFormat {

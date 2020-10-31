@@ -1,6 +1,10 @@
-[1]
+[vars]
+basedir = "/tmp/bkpbot/testdata"
+
+[jobs]
+[jobs.1]
 to_backup = [
-    "<CURDIR>/../testdata/fol2"
+    "{{BASEDIR}}/fol2"
 ]
 detect = true
 exclusions = [

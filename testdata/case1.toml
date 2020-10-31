@@ -1,9 +1,13 @@
 # currently supported custom vars for
 # root and output_folder <CURDIR>, <SCRIPTDIR>, <CONFIGDIR>
 
-[1]
+[vars]
+basedir = "/tmp/bkpbot/testdata"
+
+[jobs]
+[jobs.1]
 to_backup = [
-    "<CURDIR>/../testdata/fol1"
+    "{{BASEDIR}}/fol1"
 ]
 detect = false
 output_folder = "/tmp/bkpbot_test"

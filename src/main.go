@@ -2,7 +2,6 @@ package main
 
 import (
 	"olibs/rx"
-	"olibs/syslib"
 	"olibs/times"
 	"sort"
 	"strings"
@@ -37,7 +36,7 @@ func main() {
 		if len(bkpSet.ToBackup) > 0 {
 			outputFolder := bkpSet.OutputFolder
 			if *argsSubfolder != "" {
-				outputFolder = syslib.Pj(bkpSet.OutputFolder, *argsSubfolder)
+				outputFolder = pj(bkpSet.OutputFolder, *argsSubfolder)
 			}
 
 			bs := tBkpSet{
@@ -71,7 +70,7 @@ func main() {
 
 func targetArchiveName(bs tBkpSet) (s string) {
 	s = bs.OutputFolder
-	s = syslib.Pj(s, bs.Timestamp)
+	s = pj(s, bs.Timestamp)
 
 	shortname := bs.OutputName
 	if shortname == "" {
@@ -80,6 +79,6 @@ func targetArchiveName(bs tBkpSet) (s string) {
 		)
 	}
 
-	s = syslib.Pj(s, shortname+"."+bs.OutputFormat)
+	s = pj(s, shortname+"."+bs.OutputFormat)
 	return
 }
