@@ -37,6 +37,8 @@ func main() {
 				OutputName:   bkpSet.OutputName,
 				OutputFolder: outputFolder,
 				OutputFormat: bkpSet.OutputFormat,
+				RunBefore:    bkpSet.RunBefore,
+				RunAfter:     bkpSet.RunAfter,
 			}
 			bs.TargetArchive = targetArchiveName(bs)
 

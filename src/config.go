@@ -64,6 +64,8 @@ func makeRichConfig(config tConfig, configFileDir string) (richConfig tRichConfi
 			OutputName:   bs.OutputName,
 			OutputFolder: expandEnv(bs.OutputFolder, configFileDir),
 			OutputFormat: format,
+			RunBefore:    bs.RunBefore,
+			RunAfter:     bs.RunAfter,
 		}
 		richConfig[name] = rc
 	}

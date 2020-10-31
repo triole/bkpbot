@@ -7,6 +7,15 @@ output_name = "bkp1"
 output_folder = "/tmp/bkpbot_test"
 output_format = "tar"
 
+run_before = [
+    "ls -la",
+    "crontab -l"
+]
+run_after = [
+    "commands to run after 1",
+    "commands to run after 2"
+]
+
 [2]
 to_backup = [
     "<CURDIR>/../testdata/fol2"

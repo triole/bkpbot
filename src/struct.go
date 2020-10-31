@@ -11,8 +11,8 @@ type tFolder struct {
 	OutputName   string   `toml:"output_name"`
 	OutputFolder string   `toml:"output_folder"`
 	OutputFormat string   `toml:"output_format"`
-	RunBefore    string   `toml:"run_before"`
-	RunAfter     string   `toml:"run_after"`
+	RunBefore    []string `toml:"run_before"`
+	RunAfter     []string `toml:"run_after"`
 }
 
 type tRichFolder struct {
@@ -20,6 +20,8 @@ type tRichFolder struct {
 	OutputName   string
 	OutputFolder string
 	OutputFormat string
+	RunBefore    []string
+	RunAfter     []string
 }
 
 type tBkpSet struct {
@@ -32,4 +34,6 @@ type tBkpSet struct {
 	TargetArchive string
 	KeepLast      int
 	Name          string
+	RunBefore     []string
+	RunAfter      []string
 }
