@@ -18,7 +18,7 @@ func runBetween(cmd string, point string, prefix string) {
 }
 
 func archive(bs tBkpSet) {
-	prefix := "(" + bs.Name + ")"
+	prefix := "[" + bs.Name + "]"
 	lg.Logf("%s Start backup %q", prefix, bs.Name)
 	if *argsDebug == false {
 

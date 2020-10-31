@@ -4,6 +4,7 @@ import (
 	"olibs/rx"
 	"olibs/syslib"
 	"olibs/times"
+	"sort"
 	"strings"
 )
 
@@ -23,7 +24,16 @@ func main() {
 
 	// make backups
 	lg.Logf("Process config having %v entries", len(conf))
-	for name, bkpSet := range conf {
+
+	// make alpha iterator
+	var keys []string
+	for k, _ := range conf {
+		keys = append(keys, k)
+	}
+	sort.Strings(keys)
+
+	for _, name := range keys {
+		bkpSet := conf[name]
 		if len(bkpSet.ToBackup) > 0 {
 			outputFolder := bkpSet.OutputFolder
 			if *argsSubfolder != "" {
