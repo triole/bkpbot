@@ -48,4 +48,4 @@ task -l
 
 ## Disclaimer
 
-Warning. Use this software at your own risk. I may not be hold responsible for data loss, starving your kittens or losing bling bling powerpoint presentations made to impress human resources with the employment's performance.
+Warning. Use this software at your own risk. I may not be hold responsible for data loss, starving your kittens or losing the bling bling powerpoint presentations you made to impress human resources with the employment's performance.
