@@ -41,6 +41,9 @@ task
 
 # just test
 task test
+
+# remember what you can do if you have task
+task -l
 ```
 
 ## Disclaimer
