@@ -1,7 +1,6 @@
 package main
 
 import (
-	"fmt"
 	"sort"
 	"testing"
 )
@@ -57,7 +56,6 @@ func TestInitConfig(t *testing.T) {
 
 func assertInitConfig(configFile string, assertFolders []string, t *testing.T) {
 	conf := initConfig(configFile)
-	fmt.Printf("%q\n", conf)
 	b := conf["1"].ToBackup
 	sort.Strings(assertFolders)
 	sort.Strings(b)
