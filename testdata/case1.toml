@@ -1,0 +1,12 @@
+# currently supported custom vars for
+# root and output_folder <CURDIR>, <SCRIPTDIR>, <CONFIGDIR>
+
+[1]
+to_backup = [
+    "<CURDIR>/../testdata/fol1"
+]
+detect = false
+output_folder = "/tmp/bkpbot_test"
+output_format = "zip"
+run_before = "sudo docker stop bb3-gogs"
+run_after = "sudo docker start bb3-gogs"

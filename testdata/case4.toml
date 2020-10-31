@@ -1,0 +1,10 @@
+[1]
+to_backup = [
+    "<CONFIGDIR>/fol2"
+]
+detect = true
+exclusions = [
+    ".*/a$"
+]
+output_folder = "/tmp/bkpbot_test"
+output_format = "zip"

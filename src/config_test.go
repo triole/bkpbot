@@ -1,21 +1,26 @@
 package main
 
 import (
+	"fmt"
 	"olibs/syslib"
 	"sort"
 	"testing"
 )
 
+func TestReadConfig(t *testing.T) {
+	readTomlConfig("../testdata/case1.toml")
+}
+
 func TestInitConfig(t *testing.T) {
 	basedir := syslib.Pj(env.Curdir, "/../testdata/")
 	assertInitConfig(
-		"../testdata/testcase1.yaml",
+		"../testdata/case1.toml",
 		[]string{syslib.Pj(basedir, "fol1")},
 		t,
 	)
 
 	assertInitConfig(
-		"../testdata/testcase2.yaml",
+		"../testdata/case2.toml",
 		[]string{
 			syslib.Pj(basedir, "fol2/a"),
 			syslib.Pj(basedir, "fol2/b"),
@@ -25,7 +30,7 @@ func TestInitConfig(t *testing.T) {
 	)
 
 	assertInitConfig(
-		"../testdata/testcase3.yaml",
+		"../testdata/case3.toml",
 		[]string{
 			syslib.Pj(basedir, "fol2/b"),
 			syslib.Pj(basedir, "fol2/c"),
@@ -34,7 +39,7 @@ func TestInitConfig(t *testing.T) {
 	)
 
 	assertInitConfig(
-		"../testdata/testcase4.yaml",
+		"../testdata/case4.toml",
 		[]string{
 			syslib.Pj(basedir, "fol2/b"),
 			syslib.Pj(basedir, "fol2/c"),
@@ -43,7 +48,7 @@ func TestInitConfig(t *testing.T) {
 	)
 
 	assertInitConfig(
-		"../testdata/testcase5.yaml",
+		"../testdata/case5.toml",
 		[]string{
 			syslib.Pj(basedir, "fol2/a"),
 		},
@@ -53,7 +58,8 @@ func TestInitConfig(t *testing.T) {
 
 func assertInitConfig(configFile string, assertFolders []string, t *testing.T) {
 	conf := initConfig(configFile)
-	b := conf[0].ToBackup
+	fmt.Printf("%q\n", conf)
+	b := conf["1"].ToBackup
 	sort.Strings(assertFolders)
 	sort.Strings(b)
 	if len(assertFolders) != len(b) {

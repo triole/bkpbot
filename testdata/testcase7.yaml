@@ -1,9 +1,0 @@
--
-    to_backup:
-        - <CURDIR>/../testdata/fol1/sonnet55.txt
-        - <CURDIR>/../testdata/fol2/a/sonnet28.txt
-    detect: false
-    output:
-        name: test_arc
-        folder: /tmp/bkpbot_test
-        format: tar

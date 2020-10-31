@@ -8,8 +8,8 @@ import (
 	"github.com/mholt/archiver"
 )
 
-func archive(bs BkpSet) {
-	lg.Logf("Run backup %q -> %q", bs.ToBackup, bs.TargetArchive)
+func archive(bs tBkpSet) {
+	lg.Logf("Run backup %q: %q -> %q", bs.Name, bs.ToBackup, bs.TargetArchive)
 	if *argsDebug == false {
 
 		// make output folder although zip does automatically
@@ -17,7 +17,7 @@ func archive(bs BkpSet) {
 		syslib.MkdirAll(op)
 
 		var err error
-		switch bs.Output.Format {
+		switch bs.OutputFormat {
 		case "tar":
 			z := archiver.Tar{}
 			err = z.Archive(bs.ToBackup, bs.TargetArchive)

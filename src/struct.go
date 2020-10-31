@@ -1,32 +1,35 @@
 package main
 
-type Config []Folder
+type tConfig map[string]tFolder
 
-type RichConfig []RichFolder
+type tRichConfig map[string]tRichFolder
 
-type Folder struct {
-	ToBackup   []string `yaml:"to_backup"`
-	Detect     bool     `yaml:"detect"`
-	Exclusions []string `yaml:"exclusions"`
-	Output     Output   `yaml:"output"`
+type tFolder struct {
+	ToBackup     []string `toml:"to_backup"`
+	Detect       bool     `toml:"detect"`
+	Exclusions   []string `toml:"exclusions"`
+	OutputName   string   `toml:"output_name"`
+	OutputFolder string   `toml:"output_folder"`
+	OutputFormat string   `toml:"output_format"`
+	RunBefore    string   `toml:"run_before"`
+	RunAfter     string   `toml:"run_after"`
 }
 
-type Output struct {
-	Name   string `yaml:"name"`
-	Folder string `yaml:"folder"`
-	Format string `yaml:"format"`
+type tRichFolder struct {
+	ToBackup     []string
+	OutputName   string
+	OutputFolder string
+	OutputFormat string
 }
 
-type RichFolder struct {
-	ToBackup []string
-	Output   Output
-}
-
-type BkpSet struct {
+type tBkpSet struct {
 	ToBackup      []string
-	Output        Output
+	OutputName    string
+	OutputFolder  string
+	OutputFormat  string
 	Subfolder     string
 	Timestamp     string
 	TargetArchive string
 	KeepLast      int
+	Name          string
 }

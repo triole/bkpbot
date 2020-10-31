@@ -1,0 +1,17 @@
+[1]
+to_backup = [
+    "<CURDIR>/../testdata/fol2"
+]
+detect = true
+output_name = "bkp1"
+output_folder = "/tmp/bkpbot_test"
+output_format = "tar"
+
+[2]
+to_backup = [
+    "<CURDIR>/../testdata/fol2"
+]
+detect = true
+output_name = "bkp2"
+output_folder = "/tmp/bkpbot_test"
+output_format = "zip"

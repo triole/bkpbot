@@ -3,38 +3,33 @@ package main
 import (
 	"encoding/json"
 	"io/ioutil"
-	"log"
 	"olibs/rx"
 	"olibs/syslib"
 	"os"
 
-	yaml "gopkg.in/yaml.v2"
+	"github.com/BurntSushi/toml"
 )
 
-func initConfig(configFile string) (rc RichConfig) {
+func initConfig(configFile string) (rc tRichConfig) {
 	configFile = syslib.Pabs(configFile)
 	configDir := rx.Find(rxlib.UpToLastSlash, configFile)
-	c := readConfigYaml(configFile)
+	c := readTomlConfig(configFile)
 	rc = makeRichConfig(c, configDir)
 	return
 }
 
-func readConfigYaml(filename string) (c Config) {
-	lg.Logf("Read config %q", filename)
-	yamlFile, err := ioutil.ReadFile(syslib.Pabs(filename))
-	if err != nil {
-		log.Fatalf("File read %q", err)
-	}
-	err = yaml.Unmarshal(yamlFile, &c)
-	if err != nil {
-		log.Fatalf("Unmarshal %q", err)
+func readTomlConfig(filename string) (c tConfig) {
+	content := syslib.ReadFileToString(filename)
+	if _, err := toml.Decode(string(content), &c); err != nil {
+		lg.Logf("Exception reading config %q. %s\n", filename, err)
+		syslib.X(1)
 	}
 	return
 }
 
-// func appendConsideringExclusion()
-func makeRichConfig(config Config, configFileDir string) (richConfig RichConfig) {
-	for _, bs := range config {
+func makeRichConfig(config tConfig, configFileDir string) (richConfig tRichConfig) {
+	richConfig = make(tRichConfig)
+	for name, bs := range config {
 
 		var toBackup []string
 		for _, f := range bs.ToBackup {
@@ -59,25 +54,23 @@ func makeRichConfig(config Config, configFileDir string) (richConfig RichConfig)
 			}
 		}
 
-		format := bs.Output.Format
+		format := bs.OutputFormat
 		if format == "" {
 			format = "zip"
 		}
 
-		rc := RichFolder{
-			ToBackup: toBackup,
-			Output: Output{
-				Name:   bs.Output.Name,
-				Folder: expandEnv(bs.Output.Folder, configFileDir),
-				Format: format,
-			},
+		rc := tRichFolder{
+			ToBackup:     toBackup,
+			OutputName:   bs.OutputName,
+			OutputFolder: expandEnv(bs.OutputFolder, configFileDir),
+			OutputFormat: format,
 		}
-		richConfig = append(richConfig, rc)
+		richConfig[name] = rc
 	}
 	return
 }
 
-func saveRichConfig(rc RichConfig, targetfile string) {
+func saveRichConfig(rc tRichConfig, targetfile string) {
 	JSONData, _ := json.MarshalIndent(rc, "", "\t")
 	_ = ioutil.WriteFile(targetfile, JSONData, 0644)
 }

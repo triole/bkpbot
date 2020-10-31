@@ -1,7 +1,0 @@
--
-    to_backup:
-        - <CURDIR>/../testdata/fol1
-    detect: false
-    output:
-        folder: /tmp/bkpbot_test
-        format: tar

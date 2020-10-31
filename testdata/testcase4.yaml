@@ -1,9 +1,0 @@
--
-    to_backup:
-        - <CONFIGDIR>/fol2
-    detect: true
-    exclusions:
-        - .*\/a$
-    output:
-        folder: /tmp/bkpbot_test
-        format: zip

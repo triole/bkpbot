@@ -22,22 +22,21 @@ func main() {
 	}
 
 	// make backups
-	lg.Logf("Process config having %v entries %+v", len(conf), conf)
-	for _, bkpSet := range conf {
+	lg.Logf("Process config having %v entries", len(conf))
+	for name, bkpSet := range conf {
 		if len(bkpSet.ToBackup) > 0 {
-			outputFolder := bkpSet.Output.Folder
+			outputFolder := bkpSet.OutputFolder
 			if *argsSubfolder != "" {
-				outputFolder = syslib.Pj(bkpSet.Output.Folder, *argsSubfolder)
+				outputFolder = syslib.Pj(bkpSet.OutputFolder, *argsSubfolder)
 			}
 
-			bs := BkpSet{
-				Timestamp: timestamp,
-				ToBackup:  bkpSet.ToBackup,
-				Output: Output{
-					Name:   bkpSet.Output.Name,
-					Folder: outputFolder,
-					Format: bkpSet.Output.Format,
-				},
+			bs := tBkpSet{
+				Name:         name,
+				Timestamp:    timestamp,
+				ToBackup:     bkpSet.ToBackup,
+				OutputName:   bkpSet.OutputName,
+				OutputFolder: outputFolder,
+				OutputFormat: bkpSet.OutputFormat,
 			}
 			bs.TargetArchive = targetArchiveName(bs)
 
@@ -49,7 +48,7 @@ func main() {
 			lg.Logf(
 				"Skip set because empty. Check if possible detection works."+
 					"Settings: ToBackup %q, Outfolder %q, Format: %q",
-				bkpSet.ToBackup, bkpSet.Output.Folder, bkpSet.Output.Format,
+				bkpSet.ToBackup, bkpSet.OutputFolder, bkpSet.OutputFormat,
 			)
 		}
 	}
@@ -58,17 +57,17 @@ func main() {
 	}
 }
 
-func targetArchiveName(bs BkpSet) (s string) {
-	s = bs.Output.Folder
+func targetArchiveName(bs tBkpSet) (s string) {
+	s = bs.OutputFolder
 	s = syslib.Pj(s, bs.Timestamp)
 
-	shortname := bs.Output.Name
+	shortname := bs.OutputName
 	if shortname == "" {
 		shortname = strings.Replace(
 			rx.Find(rxlib.AfterLastSlash, bs.ToBackup[0]), ".", "_", -1,
 		)
 	}
 
-	s = syslib.Pj(s, shortname+"."+bs.Output.Format)
+	s = syslib.Pj(s, shortname+"."+bs.OutputFormat)
 	return
 }

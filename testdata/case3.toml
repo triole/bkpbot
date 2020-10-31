@@ -1,0 +1,10 @@
+[1]
+to_backup = [
+    "<CURDIR>/../testdata/fol2"
+]
+detect = true
+exclusions = [
+    ".*/a$"
+]
+output_folder = "/tmp/bkpbot_test"
+format_format = "zip"
