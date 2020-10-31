@@ -1,7 +1,0 @@
--
-    root: ${HOME}/wostok
-    detect: true
-    exclusions:
-        - .*\/_media$
-    output_folder: <CONFIGDIR>
-    format: txz
