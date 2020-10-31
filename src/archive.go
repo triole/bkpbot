@@ -9,14 +9,14 @@ import (
 )
 
 func runBetween(cmd string, point string, prefix string) {
-	var err string
+	var r tExitcode
 	if *argsDebug == false {
-		_, err = syslib.RunCmdErrMsg(cmd)
+		r = runCmd(cmd)
 	}
-	if err == "" {
-		lg.Logf("%s Run %s %q, OK", prefix, point, cmd)
+	if r.Err == "" {
+		lg.Logf("%s Run %s %q, %v", prefix, point, cmd, r.Code)
 	} else {
-		lg.Logf("%s Run %s %q, ERROR: %q", prefix, point, cmd, err)
+		lg.Logf("%s Run %s %q, %v, ERROR: %q", prefix, point, cmd, r.Code, r.Err)
 	}
 }
 
