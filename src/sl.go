@@ -4,12 +4,13 @@ import (
 	"fmt"
 	"io/ioutil"
 	"log"
-	"olibs/rx"
 	"os"
 	"path"
 	"path/filepath"
 	"sort"
 	"strings"
+
+	"./rx"
 )
 
 func find(basedir string, rxFilter string, dirOrFile string, recursively bool) []string {

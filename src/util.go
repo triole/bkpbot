@@ -1,10 +1,12 @@
 package main
 
 import (
-	"olibs/rx"
 	"os"
 	"sort"
 	"strings"
+	"time"
+
+	"./rx"
 )
 
 func cleanUp(folder string, keepLast int) {
@@ -55,5 +57,11 @@ func expandVars(folder string, vars tVars) (s string) {
 	for key, val := range vars {
 		s = strings.Replace(s, "{{"+strings.ToUpper(key)+"}}", val, -1)
 	}
+	return
+}
+
+func getTimestamp() (t string) {
+	n := time.Now()
+	t = n.Format("20060102_150405")
 	return
 }

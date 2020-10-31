@@ -1,18 +1,18 @@
 package main
 
 import (
-	"olibs/rx"
-	"olibs/times"
 	"sort"
 	"strings"
+
+	"./rx"
 )
 
 func main() {
-	lg.Logf("Start %s", appName)
 
 	argparse()
 
-	timestamp := times.Ts()
+	lg.Logf("Start %s, gonna use logfile %q", appName, lg.Logfile.Name)
+	timestamp := getTimestamp()
 	conf := initConfig(*argsConfigfile)
 
 	if *argsDebug == true {
@@ -75,7 +75,7 @@ func targetArchiveName(bs tBkpSet) (s string) {
 	shortname := bs.OutputName
 	if shortname == "" {
 		shortname = strings.Replace(
-			rx.Find(rxlib.AfterLastSlash, bs.ToBackup[0]), ".", "_", -1,
+			rx.Find(rxLib.AfterLastSlash, bs.ToBackup[0]), ".", "_", -1,
 		)
 	}
 
