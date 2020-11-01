@@ -4,14 +4,16 @@ import (
 	"math/rand"
 	"strconv"
 	"testing"
+
+	"./syslib"
 )
 
 func TestCleanup(t *testing.T) {
 	basedir := "/tmp/bkpbot_test/unittest"
-	mkdirAll(pj(basedir, "hello"))
-	mkdirAll(pj(basedir, "world"))
+	syslib.MkdirAll(syslib.Pj(basedir, "hello"))
+	syslib.MkdirAll(syslib.Pj(basedir, "world"))
 	for i := 1; i <= 10; i++ {
-		mkdirAll(pj(basedir, randomBkpFolder()))
+		syslib.MkdirAll(syslib.Pj(basedir, randomBkpFolder()))
 	}
 	cleanUp(basedir, 0)
 	cleanUp(basedir, 5)

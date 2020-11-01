@@ -3,6 +3,8 @@ package main
 import (
 	"sort"
 	"testing"
+
+	"./syslib"
 )
 
 func TestReadConfig(t *testing.T) {
@@ -13,16 +15,16 @@ func TestInitConfig(t *testing.T) {
 	basedir := "/tmp/bkpbot/testdata"
 	assertInitConfig(
 		"../testdata/case1.toml",
-		[]string{pj(basedir, "fol1")},
+		[]string{syslib.Pj(basedir, "fol1")},
 		t,
 	)
 
 	assertInitConfig(
 		"../testdata/case2.toml",
 		[]string{
-			pj(basedir, "fol2/a"),
-			pj(basedir, "fol2/b"),
-			pj(basedir, "fol2/c"),
+			syslib.Pj(basedir, "fol2/a"),
+			syslib.Pj(basedir, "fol2/b"),
+			syslib.Pj(basedir, "fol2/c"),
 		},
 		t,
 	)
@@ -30,8 +32,8 @@ func TestInitConfig(t *testing.T) {
 	assertInitConfig(
 		"../testdata/case3.toml",
 		[]string{
-			pj(basedir, "fol2/b"),
-			pj(basedir, "fol2/c"),
+			syslib.Pj(basedir, "fol2/b"),
+			syslib.Pj(basedir, "fol2/c"),
 		},
 		t,
 	)
@@ -39,8 +41,8 @@ func TestInitConfig(t *testing.T) {
 	assertInitConfig(
 		"../testdata/case4.toml",
 		[]string{
-			pj(basedir, "fol2/b"),
-			pj(basedir, "fol2/c"),
+			syslib.Pj(basedir, "fol2/b"),
+			syslib.Pj(basedir, "fol2/c"),
 		},
 		t,
 	)
@@ -48,7 +50,7 @@ func TestInitConfig(t *testing.T) {
 	assertInitConfig(
 		"../testdata/case5.toml",
 		[]string{
-			pj(basedir, "fol2/a"),
+			syslib.Pj(basedir, "fol2/a"),
 		},
 		t,
 	)

@@ -7,6 +7,7 @@ import (
 	"time"
 
 	"./rx"
+	"./syslib"
 )
 
 func cleanUp(folder string, keepLast int) {
@@ -36,7 +37,7 @@ func stringInSlice(a string, list []string) bool {
 
 func detectFolders(root, rx string) (fol []string) {
 	fol = []string{root}
-	fol = find(root, rx, "d", false)
+	fol = syslib.Find(root, rx, "d", false)
 	sort.Strings(fol)
 	return
 }

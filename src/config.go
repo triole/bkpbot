@@ -5,21 +5,22 @@ import (
 	"io/ioutil"
 	"os"
 
+	"./syslib"
 	"github.com/BurntSushi/toml"
 )
 
 func initConfig(configFile string) (rc tRichConfig) {
-	configFile = pabs(configFile)
+	configFile = syslib.Pabs(configFile)
 	c := readTomlConfig(configFile)
 	rc = makeRichConfig(c)
 	return
 }
 
 func readTomlConfig(filename string) (c tConfig) {
-	content := readFileToString(filename)
+	content := syslib.ReadFileToString(filename)
 	if _, err := toml.Decode(string(content), &c); err != nil {
 		lg.Logf("Exception reading config %q. %s\n", filename, err)
-		x(1)
+		syslib.X(1)
 	}
 	return
 }

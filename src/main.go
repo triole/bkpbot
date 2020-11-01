@@ -5,6 +5,7 @@ import (
 	"strings"
 
 	"./rx"
+	"./syslib"
 )
 
 func main() {
@@ -36,7 +37,7 @@ func main() {
 		if len(bkpSet.ToBackup) > 0 {
 			outputFolder := bkpSet.OutputFolder
 			if *argsSubfolder != "" {
-				outputFolder = pj(bkpSet.OutputFolder, *argsSubfolder)
+				outputFolder = syslib.Pj(bkpSet.OutputFolder, *argsSubfolder)
 			}
 
 			bs := tBkpSet{
@@ -70,7 +71,7 @@ func main() {
 
 func targetArchiveName(bs tBkpSet) (s string) {
 	s = bs.OutputFolder
-	s = pj(s, bs.Timestamp)
+	s = syslib.Pj(s, bs.Timestamp)
 
 	shortname := bs.OutputName
 	if shortname == "" {
@@ -79,6 +80,6 @@ func targetArchiveName(bs tBkpSet) (s string) {
 		)
 	}
 
-	s = pj(s, shortname+"."+bs.OutputFormat)
+	s = syslib.Pj(s, shortname+"."+bs.OutputFormat)
 	return
 }

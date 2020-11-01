@@ -1,4 +1,4 @@
-package main
+package syslib
 
 import (
 	"fmt"
@@ -10,10 +10,11 @@ import (
 	"sort"
 	"strings"
 
-	"./rx"
+	"../rx"
 )
 
-func find(basedir string, rxFilter string, dirOrFile string, recursively bool) []string {
+// Find detects files in folder, even recursively
+func Find(basedir string, rxFilter string, dirOrFile string, recursively bool) []string {
 	filelist := []string{}
 	// index files
 	if recursively == true {
@@ -63,32 +64,37 @@ func listFolderContentSimple(basedir string) []string {
 	return filelist
 }
 
-func mkdirAll(foldername string) {
+// MkdirAll is like "mkdir -p"
+func MkdirAll(foldername string) {
 	os.MkdirAll(foldername, os.ModePerm)
 }
 
-func pabs(pathstring string) string {
+// Pabs makes sure a path is absolute
+func Pabs(pathstring string) string {
 	r, err := filepath.Abs(pathstring)
 	if err != nil {
 		fmt.Printf("Unable to make absolute path. %s\n", err)
-		x(1)
+		X(1)
 	}
 	return r
 }
 
-func pj(p1 string, p2 string) string {
+// Pj is kind of like Pytons path.join
+func Pj(p1 string, p2 string) string {
 	return path.Join(p1, p2)
 }
 
-func readFileToString(filename string) string {
+// ReadFileToString reads content of a file into a string
+func ReadFileToString(filename string) string {
 	f, err := ioutil.ReadFile(filename)
 	if err != nil {
 		fmt.Printf("An error occured: %q", err)
-		x(1)
+		X(1)
 	}
 	return string(f)
 }
 
-func x(exitCode int) {
+// X exits the program returning an exit code
+func X(exitCode int) {
 	os.Exit(exitCode)
 }
