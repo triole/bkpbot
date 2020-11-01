@@ -1,0 +1,12 @@
+[vars]
+basedir = "/tmp/bkpbot/testdata"
+outdir = "/tmp/bkpbot/output"
+
+[jobs]
+[jobs.1]
+to_backup = [
+    "{{BASEDIR}}"
+]
+detect = true
+output_folder = "{{OUTDIR}}"
+output_format = "zip"

@@ -34,4 +34,4 @@ exclusions = [
     ".*/(a|b)$"
 ]
 output_folder = "{{OUTFOLDER}}"
-output_format = "tar"
+output_format = "tgz"

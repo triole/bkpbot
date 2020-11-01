@@ -1,0 +1,11 @@
+[vars]
+basedir = "/tmp/bkpbot/testdata"
+
+[jobs]
+[jobs.1]
+to_backup = [
+    "{{BASEDIR}}/fol1"
+]
+detect = false
+output_folder = "/tmp/bkpbot/output"
+output_format = "tar"
