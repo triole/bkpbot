@@ -5,7 +5,7 @@ import (
 	"strconv"
 	"testing"
 
-	"./syslib"
+	"github.com/triole/bkpbot/syslib"
 )
 
 func TestCleanup(t *testing.T) {

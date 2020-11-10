@@ -4,7 +4,7 @@ import (
 	"sort"
 	"testing"
 
-	"./syslib"
+	"github.com/triole/bkpbot/syslib"
 )
 
 func TestReadConfig(t *testing.T) {

@@ -6,8 +6,8 @@ import (
 	"strings"
 	"time"
 
-	"./rx"
-	"./syslib"
+	"github.com/triole/bkpbot/rx"
+	"github.com/triole/bkpbot/syslib"
 )
 
 func cleanUp(folder string, keepLast int) {

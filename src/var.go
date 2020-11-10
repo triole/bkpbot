@@ -4,10 +4,9 @@ import (
 	"os"
 	"time"
 
-	"./env"
-	"./rx"
-
-	"./logging"
+	"github.com/triole/bkpbot/env"
+	"github.com/triole/bkpbot/logging"
+	"github.com/triole/bkpbot/rx"
 
 	kingpin "gopkg.in/alecthomas/kingpin.v2"
 )

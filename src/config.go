@@ -5,8 +5,8 @@ import (
 	"io/ioutil"
 	"os"
 
-	"./syslib"
 	"github.com/BurntSushi/toml"
+	"github.com/triole/bkpbot/syslib"
 )
 
 func initConfig(configFile string) (rc tRichConfig) {

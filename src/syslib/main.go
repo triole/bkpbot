@@ -10,7 +10,7 @@ import (
 	"sort"
 	"strings"
 
-	"../rx"
+	"github.com/triole/bkpbot/rx"
 )
 
 // Find detects files in folder, even recursively

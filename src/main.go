@@ -4,8 +4,8 @@ import (
 	"sort"
 	"strings"
 
-	"./rx"
-	"./syslib"
+	"github.com/triole/bkpbot/rx"
+	"github.com/triole/bkpbot/syslib"
 )
 
 func main() {

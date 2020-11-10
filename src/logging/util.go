@@ -7,7 +7,7 @@ import (
 	"strings"
 	"time"
 
-	"../rx"
+	"github.com/triole/bkpbot/rx"
 )
 
 // write a line into logfile

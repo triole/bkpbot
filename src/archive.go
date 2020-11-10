@@ -3,8 +3,8 @@ package main
 import (
 	"compress/flate"
 
-	"./rx"
-	"./syslib"
+	"github.com/triole/bkpbot/rx"
+	"github.com/triole/bkpbot/syslib"
 
 	"github.com/mholt/archiver"
 )

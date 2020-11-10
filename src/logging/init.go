@@ -4,7 +4,7 @@ import (
 	"bytes"
 	"os"
 
-	"../rx"
+	"github.com/triole/bkpbot/rx"
 )
 
 var (
