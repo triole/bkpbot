@@ -1,4 +1,6 @@
-# Bkpbot
+# Bkpbot [DEPRECATED in favour of Restic]
+
+https://github.com/restic/restic.git <hr>
 
 <!--- mdtoc: toc begin -->
 
